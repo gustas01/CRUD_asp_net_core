@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "e:\\CatalogAPI\\CatalogAPI\\CatalogAPI.csproj": {}
+    "E:\\CatalogAPI\\CatalogAPI\\CatalogAPI.csproj": {}
   },
   "projects": {
-    "e:\\CatalogAPI\\CatalogAPI\\CatalogAPI.csproj": {
+    "E:\\CatalogAPI\\CatalogAPI\\CatalogAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "e:\\CatalogAPI\\CatalogAPI\\CatalogAPI.csproj",
+        "projectUniqueName": "E:\\CatalogAPI\\CatalogAPI\\CatalogAPI.csproj",
         "projectName": "CatalogAPI",
-        "projectPath": "e:\\CatalogAPI\\CatalogAPI\\CatalogAPI.csproj",
+        "projectPath": "E:\\CatalogAPI\\CatalogAPI\\CatalogAPI.csproj",
         "packagesPath": "C:\\Users\\Gustavo\\.nuget\\packages\\",
-        "outputPath": "e:\\CatalogAPI\\CatalogAPI\\obj\\",
+        "outputPath": "E:\\CatalogAPI\\CatalogAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

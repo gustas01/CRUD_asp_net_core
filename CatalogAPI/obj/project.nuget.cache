@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "HrE6FoZ7Xf93UgzYUxoqkLCAk/qJCiLdGk1my7Xo1/EbtLGaqOQHnkCppzAAimgyS2bAC00gYqf+UlGAA4syrA==",
+  "dgSpecHash": "iy7fVoYnineRHWIV4A6H+E8XItnSdLiG9fwFyyNk+GmrpjXuwIuZbiVPdsfIB5o+/RREhkcdJ1Jh+8gpPu9MJA==",
   "success": true,
-  "projectFilePath": "e:\\CatalogAPI\\CatalogAPI\\CatalogAPI.csproj",
+  "projectFilePath": "E:\\CatalogAPI\\CatalogAPI\\CatalogAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Gustavo\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
     "C:\\Users\\Gustavo\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
