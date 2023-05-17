@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "iy7fVoYnineRHWIV4A6H+E8XItnSdLiG9fwFyyNk+GmrpjXuwIuZbiVPdsfIB5o+/RREhkcdJ1Jh+8gpPu9MJA==",
+  "dgSpecHash": "1sweqPMURnfx3nb12WXWCnOK0FJ+EsNs5i/lwpn3Bx/1nZiFL+ndzlOHcwSYZCvUWfds4+oRe0PZDl2ZLgMPWg==",
   "success": true,
   "projectFilePath": "E:\\CatalogAPI\\CatalogAPI\\CatalogAPI.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Gustavo\\.nuget\\packages\\dotenv.net\\3.1.2\\dotenv.net.3.1.2.nupkg.sha512",
     "C:\\Users\\Gustavo\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
     "C:\\Users\\Gustavo\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Gustavo\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

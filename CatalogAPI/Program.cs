@@ -1,5 +1,6 @@
 using CatalogAPI.Context;
 using Microsoft.EntityFrameworkCore;
+using dotenv.net;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +11,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-string? MyPGConnection = builder.Configuration.GetConnectionString("DefaultConnection");
+DotEnv.Load();
+IDictionary<string, string> envV = DotEnv.Read();
+
+string? MyPGConnection = $"Server={envV["APP_SERVERNAME"]};Port={envV["APP_PORT"]};User Id={envV["APP_USERNAME"]};Password={envV["APP_PASSWORD"]};Database={envV["APP_DATABASE"]};";
+
 builder.Services.AddDbContext<CatalogAPIContext>(option => option.UseNpgsql(MyPGConnection));
 
 var app = builder.Build();
