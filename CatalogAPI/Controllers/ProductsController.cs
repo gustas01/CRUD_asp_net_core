@@ -21,4 +21,30 @@ public class ProductsController : ControllerBase
     if(products is null) return NotFound("Produtos não encontrados");
     return products;
   }
+
+  [HttpGet("{id:int}", Name="ReadProduct")]
+  public ActionResult<Product> Get(int id){
+    var product = _context?.Products?.FirstOrDefault(p => p.ProductId == id);
+    if(product is null) return NotFound("Produto não encontrado");
+    return product;
+  }
+
+
+  [HttpPost]
+  public ActionResult Post(Product product){
+    if(product is null) return BadRequest();
+    _context?.Products?.Add(product);
+    _context?.SaveChanges();
+    return new CreatedAtRouteResult("ReadProduct", new { id = product.ProductId }, product);
+  }
+
+  [HttpPut("{id:int}")]
+  public ActionResult Put(int id, Product product){
+    if(id != product.ProductId) return BadRequest();
+
+    _context.Entry(product).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+    _context.SaveChanges();
+
+    return Ok(product);
+  }
 }
