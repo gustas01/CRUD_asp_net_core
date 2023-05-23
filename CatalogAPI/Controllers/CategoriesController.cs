@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using CatalogAPI.Context;
 using CatalogAPI.Models;
-using Microsoft.EntityFrameworkCore;
-
+using CatalogAPI.Repository;
 
 namespace CatalogAPI.Controllers;
 
@@ -10,11 +8,11 @@ namespace CatalogAPI.Controllers;
 [Route("[controller]")]
 public class CategoriesController : ControllerBase
 {
-  private readonly CatalogAPIContext _context;
+  private readonly IUnitOfWork _unitOfWork;
 
-  public CategoriesController(CatalogAPIContext context)
+  public CategoriesController(IUnitOfWork context)
   {
-    _context = context;
+    _unitOfWork = context;
   }
   
 
@@ -22,7 +20,7 @@ public class CategoriesController : ControllerBase
   public ActionResult<IEnumerable<Category>> Index(){
     try
     {
-      List<Category> categories = _context.Categories.AsNoTracking().ToList();
+      List<Category> categories = _unitOfWork.CategoryRepository.Get().ToList();
       if(categories is null) return NotFound("Categorias não encontradas");
       return categories;
     }
@@ -37,7 +35,7 @@ public class CategoriesController : ControllerBase
   public ActionResult<IEnumerable<Category>> GetInnerCategoryProduct(){
     try
     {
-      return _context.Categories.Include(p => p.Products).AsNoTracking().ToList();
+      return _unitOfWork.CategoryRepository.GetCategoryProducts().ToList();
     }
     catch (System.Exception)
     {
@@ -50,7 +48,7 @@ public class CategoriesController : ControllerBase
   public ActionResult<Category> Read(int id){
     try
     {
-      Category categorie = _context?.Categories?.AsNoTracking().FirstOrDefault(c => c.CategoryId == id);
+      Category? categorie = _unitOfWork?.CategoryRepository.GetById(c => c.CategoryId == id);
       if(categorie is null) return NotFound($"Categoria com id={id} não encontrada");
       return categorie;
     }
@@ -66,8 +64,8 @@ public class CategoriesController : ControllerBase
     try
     {
       if(category is null) return BadRequest();
-      _context?.Categories?.Add(category);
-      _context?.SaveChanges();
+      _unitOfWork?.CategoryRepository?.Add(category);
+      _unitOfWork?.Commit();
       return new CreatedAtRouteResult("ReadCategory", new { id = category.CategoryId }, category);
     }
     catch (System.Exception)
@@ -83,8 +81,7 @@ public class CategoriesController : ControllerBase
     {
       if(id != category.CategoryId) return BadRequest();
 
-      _context.Entry(category).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-      _context.SaveChanges();
+      _unitOfWork.CategoryRepository.Update(category);
 
       return Ok(category);
     }
@@ -99,11 +96,11 @@ public class CategoriesController : ControllerBase
   public ActionResult Delete(int id){
     try
     {
-      Category category = _context.Categories.FirstOrDefault(c => c.CategoryId == id);
+      Category category = _unitOfWork.CategoryRepository.GetById(c => c.CategoryId == id);
       if(category is null) return NotFound($"Categoria com id={id} não encontrada");
 
-      _context.Categories.Remove(category);
-      _context.SaveChanges();
+      _unitOfWork.CategoryRepository.Delete(category);
+      _unitOfWork.Commit();
 
       return Ok(category);
     }

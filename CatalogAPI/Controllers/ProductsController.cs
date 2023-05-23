@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using CatalogAPI.Context;
 using CatalogAPI.Models;
-using Microsoft.EntityFrameworkCore;
+using CatalogAPI.Repository;
 
 namespace CatalogAPI.Controllers;
 
@@ -9,18 +8,24 @@ namespace CatalogAPI.Controllers;
 [Route("[controller]")]
 public class ProductsController : ControllerBase
 {
-  private readonly CatalogAPIContext? _context;
+  private readonly IUnitOfWork _unitOfWork;
 
-  public ProductsController(CatalogAPIContext context)
+  public ProductsController(IUnitOfWork context)
   {
-    _context = context;
+    _unitOfWork = context;
+  }
+
+
+  [HttpGet("orderByPrice")]
+  public ActionResult<IEnumerable<Product>> GetProductsByPrice(){
+    return _unitOfWork.ProductRepository.GetProductsByPrice().ToList();
   }
 
   [HttpGet]
   public ActionResult<IEnumerable<Product>> Get(){
     try
     {
-      List<Product> products = _context.Products.AsNoTracking().ToList();
+      List<Product> products = _unitOfWork.ProductRepository.Get().ToList();
       if(products is null) return NotFound("Produtos não encontrados");
       return products;
     }
@@ -34,7 +39,7 @@ public class ProductsController : ControllerBase
   public ActionResult<Product> Get(int id){
     try
     {
-      var product = _context?.Products?.AsNoTracking().FirstOrDefault(p => p.ProductId == id);
+      var product = _unitOfWork?.ProductRepository.GetById(p => p.ProductId == id);
       if(product is null) return NotFound("Produto não encontrado");
       return product;
     }
@@ -50,8 +55,8 @@ public class ProductsController : ControllerBase
     try
     {
       if(product is null) return BadRequest();
-      _context?.Products?.Add(product);
-      _context?.SaveChanges();
+      _unitOfWork?.ProductRepository?.Add(product);
+      _unitOfWork?.Commit();
       return new CreatedAtRouteResult("ReadProduct", new { id = product.ProductId }, product);
     }
     catch (System.Exception)
@@ -66,8 +71,8 @@ public class ProductsController : ControllerBase
     {
       if(id != product.ProductId) return BadRequest();
 
-      _context.Entry(product).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-      _context.SaveChanges();
+      _unitOfWork.ProductRepository.Update(product);
+      _unitOfWork.Commit();
 
       return Ok(product);
     }
@@ -81,11 +86,11 @@ public class ProductsController : ControllerBase
   public ActionResult Delete(int id){
     try
     {
-      Product product = _context.Products.FirstOrDefault(p => p.ProductId == id);
+      Product product = _unitOfWork.ProductRepository.GetById(p => p.ProductId == id);
       if(product is null) return NotFound("Produto não encontrado");
 
-      _context.Products.Remove(product);
-      _context.SaveChanges();
+      _unitOfWork.ProductRepository.Delete(product);
+      _unitOfWork.Commit();
 
       return Ok(product);
     }

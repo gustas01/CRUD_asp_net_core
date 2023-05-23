@@ -2317,11 +2317,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "e:\\CatalogAPI\\CatalogAPI\\CatalogAPI.csproj",
+      "projectUniqueName": "E:\\CatalogAPI_aspnet\\CatalogAPI\\CatalogAPI.csproj",
       "projectName": "CatalogAPI",
-      "projectPath": "e:\\CatalogAPI\\CatalogAPI\\CatalogAPI.csproj",
+      "projectPath": "E:\\CatalogAPI_aspnet\\CatalogAPI\\CatalogAPI.csproj",
       "packagesPath": "C:\\Users\\Gustavo\\.nuget\\packages\\",
-      "outputPath": "e:\\CatalogAPI\\CatalogAPI\\obj\\",
+      "outputPath": "E:\\CatalogAPI_aspnet\\CatalogAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

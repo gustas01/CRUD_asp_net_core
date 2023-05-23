@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "1sweqPMURnfx3nb12WXWCnOK0FJ+EsNs5i/lwpn3Bx/1nZiFL+ndzlOHcwSYZCvUWfds4+oRe0PZDl2ZLgMPWg==",
+  "dgSpecHash": "3nCMgaM3o5uajUVd2rzv64ri4nuIUJdPGcEDl6ovTMU0DanTvELT/3U5SEqLwuDF4yav0esQY+zgxH/WDHkeSA==",
   "success": true,
-  "projectFilePath": "E:\\CatalogAPI\\CatalogAPI\\CatalogAPI.csproj",
+  "projectFilePath": "E:\\CatalogAPI_aspnet\\CatalogAPI\\CatalogAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Gustavo\\.nuget\\packages\\dotenv.net\\3.1.2\\dotenv.net.3.1.2.nupkg.sha512",
     "C:\\Users\\Gustavo\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
