@@ -2,6 +2,8 @@ using CatalogAPI.Context;
 using Microsoft.EntityFrameworkCore;
 using dotenv.net;
 using CatalogAPI.Repository;
+using AutoMapper;
+using CatalogAPI.DTOs.Mappings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +21,14 @@ string? MyPGConnection = $"Server={envV["APP_SERVERNAME"]};Port={envV["APP_PORT"
 
 builder.Services.AddDbContext<CatalogAPIContext>(option => option.UseNpgsql(MyPGConnection));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+//configurações do automapper
+var mappingConfig = new MapperConfiguration(mc => {
+  mc.AddProfile(new MappingProfile());
+});
+IMapper mapper = mappingConfig.CreateMapper();
+builder.Services.AddSingleton(mapper);
+
 
 var app = builder.Build();
 

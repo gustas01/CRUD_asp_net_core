@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using CatalogAPI.Models;
 using CatalogAPI.Repository;
+using AutoMapper;
+using CatalogAPI.DTOs;
 
 namespace CatalogAPI.Controllers;
 
@@ -9,25 +11,31 @@ namespace CatalogAPI.Controllers;
 public class ProductsController : ControllerBase
 {
   private readonly IUnitOfWork _unitOfWork;
+  private readonly IMapper _mapper;
 
-  public ProductsController(IUnitOfWork context)
+  public ProductsController(IUnitOfWork context, IMapper mapper)
   {
     _unitOfWork = context;
+    _mapper = mapper;
   }
 
 
   [HttpGet("orderByPrice")]
-  public ActionResult<IEnumerable<Product>> GetProductsByPrice(){
-    return _unitOfWork.ProductRepository.GetProductsByPrice().ToList();
+  public ActionResult<IEnumerable<ProductDTO>> GetProductsByPrice(){
+
+    var products =_unitOfWork.ProductRepository.GetProductsByPrice().ToList();
+    var productsDTO = _mapper.Map<List<ProductDTO>>(products);
+    return productsDTO;
   }
 
   [HttpGet]
-  public ActionResult<IEnumerable<Product>> Get(){
+  public ActionResult<IEnumerable<ProductDTO>> Index(){
     try
     {
       List<Product> products = _unitOfWork.ProductRepository.Get().ToList();
       if(products is null) return NotFound("Produtos não encontrados");
-      return products;
+      var productsDTO = _mapper.Map<List<ProductDTO>>(products);
+      return productsDTO;
     }
     catch (System.Exception)
     {
@@ -36,12 +44,12 @@ public class ProductsController : ControllerBase
   }
 
   [HttpGet("{id:int}", Name="ReadProduct")]
-  public ActionResult<Product> Get(int id){
+  public ActionResult<ProductDTO> Read(int id){
     try
     {
       var product = _unitOfWork?.ProductRepository.GetById(p => p.ProductId == id);
       if(product is null) return NotFound("Produto não encontrado");
-      return product;
+      return _mapper.Map<ProductDTO>(product);
     }
     catch (System.Exception)
     {
@@ -51,13 +59,15 @@ public class ProductsController : ControllerBase
 
 
   [HttpPost]
-  public ActionResult Post(Product product){
+  public ActionResult<ProductDTO> Create(ProductDTO productDTO){
     try
     {
+      Product product = _mapper.Map<Product>(productDTO);
       if(product is null) return BadRequest();
       _unitOfWork?.ProductRepository?.Add(product);
       _unitOfWork?.Commit();
-      return new CreatedAtRouteResult("ReadProduct", new { id = product.ProductId }, product);
+      ProductDTO productDto = _mapper.Map<ProductDTO>(product);
+      return new CreatedAtRouteResult("ReadProduct", new { id = productDto.ProductId }, productDto);
     }
     catch (System.Exception)
     {
@@ -66,15 +76,19 @@ public class ProductsController : ControllerBase
   }
 
   [HttpPut("{id:int}")]
-  public ActionResult Put(int id, Product product){
+  public ActionResult<ProductDTO> Update(int id, ProductDTO productDTO){
     try
     {
-      if(id != product.ProductId) return BadRequest();
+      if(id != productDTO.ProductId) return BadRequest();
+
+      Product product = _mapper.Map<Product>(productDTO);
 
       _unitOfWork.ProductRepository.Update(product);
       _unitOfWork.Commit();
 
-      return Ok(product);
+      ProductDTO productDto = _mapper.Map<ProductDTO>(product);
+
+      return Ok(productDto);
     }
     catch (System.Exception)
     {
@@ -83,7 +97,7 @@ public class ProductsController : ControllerBase
   }
 
   [HttpDelete("{id:int}")]
-  public ActionResult Delete(int id){
+  public ActionResult<ProductDTO> Delete(int id){
     try
     {
       Product product = _unitOfWork.ProductRepository.GetById(p => p.ProductId == id);
@@ -91,8 +105,9 @@ public class ProductsController : ControllerBase
 
       _unitOfWork.ProductRepository.Delete(product);
       _unitOfWork.Commit();
+      ProductDTO productDto = _mapper.Map<ProductDTO>(product);
 
-      return Ok(product);
+      return Ok(productDto);
     }
     catch (System.Exception)
     {

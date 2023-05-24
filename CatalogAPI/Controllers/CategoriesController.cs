@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using CatalogAPI.Models;
 using CatalogAPI.Repository;
+using AutoMapper;
+using CatalogAPI.DTOs;
 
 namespace CatalogAPI.Controllers;
 
@@ -9,20 +11,24 @@ namespace CatalogAPI.Controllers;
 public class CategoriesController : ControllerBase
 {
   private readonly IUnitOfWork _unitOfWork;
+  private readonly IMapper _mapper;
 
-  public CategoriesController(IUnitOfWork context)
+  public CategoriesController(IUnitOfWork context, IMapper mapper)
   {
     _unitOfWork = context;
+    _mapper = mapper;
   }
   
 
   [HttpGet]
-  public ActionResult<IEnumerable<Category>> Index(){
+  public ActionResult<IEnumerable<CategoryDTO>> Index(){
     try
     {
       List<Category> categories = _unitOfWork.CategoryRepository.Get().ToList();
       if(categories is null) return NotFound("Categorias não encontradas");
-      return categories;
+      var categoriesDTO = _mapper.Map<List<CategoryDTO>>(categories);
+
+      return categoriesDTO;
     }
     catch (System.Exception)
     {
@@ -32,10 +38,11 @@ public class CategoriesController : ControllerBase
 
 
   [HttpGet("products")]
-  public ActionResult<IEnumerable<Category>> GetInnerCategoryProduct(){
+  public ActionResult<IEnumerable<CategoryDTO>> GetInnerCategoryProduct(){
     try
     {
-      return _unitOfWork.CategoryRepository.GetCategoryProducts().ToList();
+      var categories =_unitOfWork.CategoryRepository.GetCategoryProducts().ToList();
+      return _mapper.Map<List<CategoryDTO>>(categories);
     }
     catch (System.Exception)
     {
@@ -45,12 +52,12 @@ public class CategoriesController : ControllerBase
 
 
   [HttpGet("{id:int}", Name="ReadCategory")]
-  public ActionResult<Category> Read(int id){
+  public ActionResult<CategoryDTO> Read(int id){
     try
     {
       Category? categorie = _unitOfWork?.CategoryRepository.GetById(c => c.CategoryId == id);
       if(categorie is null) return NotFound($"Categoria com id={id} não encontrada");
-      return categorie;
+      return _mapper.Map<CategoryDTO>(categorie);
     }
     catch (System.Exception)
     {
@@ -60,13 +67,15 @@ public class CategoriesController : ControllerBase
 
 
   [HttpPost]
-  public ActionResult Create(Category category){
+  public ActionResult Create(CategoryDTO categoryDTO){
     try
     {
+      Category category = _mapper.Map<Category>(categoryDTO);
       if(category is null) return BadRequest();
       _unitOfWork?.CategoryRepository?.Add(category);
       _unitOfWork?.Commit();
-      return new CreatedAtRouteResult("ReadCategory", new { id = category.CategoryId }, category);
+      CategoryDTO categoryDto = _mapper.Map<CategoryDTO>(category);
+      return new CreatedAtRouteResult("ReadCategory", new { id = categoryDto.CategoryId }, categoryDto);
     }
     catch (System.Exception)
     {
@@ -76,14 +85,18 @@ public class CategoriesController : ControllerBase
 
 
   [HttpPut("{id:int}")]
-  public ActionResult Update(int id, Category category){
+  public ActionResult Update(int id, CategoryDTO categoryDTO){
     try
     {
-      if(id != category.CategoryId) return BadRequest();
+      if(id != categoryDTO.CategoryId) return BadRequest();
+
+      Category category = _mapper.Map<Category>(categoryDTO);
 
       _unitOfWork.CategoryRepository.Update(category);
 
-      return Ok(category);
+      CategoryDTO categoryDto = _mapper.Map<CategoryDTO>(category);
+
+      return Ok(categoryDto);
     }
     catch (System.Exception)
     {
@@ -101,8 +114,9 @@ public class CategoriesController : ControllerBase
 
       _unitOfWork.CategoryRepository.Delete(category);
       _unitOfWork.Commit();
+      CategoryDTO categoryDto = _mapper.Map<CategoryDTO>(category);
 
-      return Ok(category);
+      return Ok(categoryDto);
     }
     catch (System.Exception)
     {

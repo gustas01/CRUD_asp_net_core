@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "3nCMgaM3o5uajUVd2rzv64ri4nuIUJdPGcEDl6ovTMU0DanTvELT/3U5SEqLwuDF4yav0esQY+zgxH/WDHkeSA==",
+  "dgSpecHash": "VVV6iyIRf627I6j+A0PKUF1jTwZRvb5Vj+c6Qzb6x8BYIeU/sITUB8G6ZGUDx79QIvhXEing6hzwDxLqxD/tsw==",
   "success": true,
   "projectFilePath": "E:\\CatalogAPI_aspnet\\CatalogAPI\\CatalogAPI.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Gustavo\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
+    "C:\\Users\\Gustavo\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Users\\Gustavo\\.nuget\\packages\\dotenv.net\\3.1.2\\dotenv.net.3.1.2.nupkg.sha512",
     "C:\\Users\\Gustavo\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
     "C:\\Users\\Gustavo\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
