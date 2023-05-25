@@ -3,6 +3,8 @@ using CatalogAPI.Models;
 using CatalogAPI.Repository;
 using AutoMapper;
 using CatalogAPI.DTOs;
+using CatalogAPI.Pagination;
+using Newtonsoft.Json;
 
 namespace CatalogAPI.Controllers;
 
@@ -29,10 +31,22 @@ public class ProductsController : ControllerBase
   }
 
   [HttpGet]
-  public ActionResult<IEnumerable<ProductDTO>> Index(){
+  public ActionResult<IEnumerable<ProductDTO>> Index([FromQuery] ProductsParameters productsParameters){
     try
     {
-      List<Product> products = _unitOfWork.ProductRepository.Get().ToList();
+      PagedList<Product> products = _unitOfWork.ProductRepository.GetProducts(productsParameters);
+
+      var metadata = new {
+        products.TotalCount,
+        products.PageSize,
+        products.CurrentPage,
+        products.TotalPages,
+        products.HasPrevious,
+        products.HasNext,
+      };
+
+      Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+
       if(products is null) return NotFound("Produtos não encontrados");
       var productsDTO = _mapper.Map<List<ProductDTO>>(products);
       return productsDTO;

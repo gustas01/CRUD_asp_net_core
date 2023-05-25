@@ -148,3 +148,4 @@ E:\CatalogAPI_aspnet\CatalogAPI\obj\Debug\net6.0\CatalogAPI.genruntimeconfig.cac
 E:\CatalogAPI_aspnet\CatalogAPI\obj\Debug\net6.0\ref\CatalogAPI.dll
 E:\CatalogAPI_aspnet\CatalogAPI\bin\Debug\net6.0\AutoMapper.dll
 E:\CatalogAPI_aspnet\CatalogAPI\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+E:\CatalogAPI_aspnet\CatalogAPI\bin\Debug\net6.0\Newtonsoft.Json.dll
