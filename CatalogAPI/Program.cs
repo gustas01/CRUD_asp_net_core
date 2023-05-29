@@ -4,6 +4,7 @@ using dotenv.net;
 using CatalogAPI.Repository;
 using AutoMapper;
 using CatalogAPI.DTOs.Mappings;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,8 @@ string? MyPGConnection = $"Server={envV["APP_SERVERNAME"]};Port={envV["APP_PORT"
 
 builder.Services.AddDbContext<CatalogAPIContext>(option => option.UseNpgsql(MyPGConnection));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<CatalogAPIContext>().AddDefaultTokenProviders();
 
 //configurações do automapper
 var mappingConfig = new MapperConfiguration(mc => {
@@ -40,6 +43,7 @@ if (app.Environment.IsDevelopment()) {
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

@@ -132,11 +132,6 @@ E:\CatalogAPI_aspnet\CatalogAPI\obj\Debug\net6.0\CatalogAPI.AssemblyInfo.cs
 E:\CatalogAPI_aspnet\CatalogAPI\obj\Debug\net6.0\CatalogAPI.csproj.CoreCompileInputs.cache
 E:\CatalogAPI_aspnet\CatalogAPI\obj\Debug\net6.0\CatalogAPI.MvcApplicationPartsAssemblyInfo.cs
 E:\CatalogAPI_aspnet\CatalogAPI\obj\Debug\net6.0\CatalogAPI.MvcApplicationPartsAssemblyInfo.cache
-E:\CatalogAPI_aspnet\CatalogAPI\obj\Debug\net6.0\staticwebassets\msbuild.CatalogAPI.Microsoft.AspNetCore.StaticWebAssets.props
-E:\CatalogAPI_aspnet\CatalogAPI\obj\Debug\net6.0\staticwebassets\msbuild.build.CatalogAPI.props
-E:\CatalogAPI_aspnet\CatalogAPI\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.CatalogAPI.props
-E:\CatalogAPI_aspnet\CatalogAPI\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.CatalogAPI.props
-E:\CatalogAPI_aspnet\CatalogAPI\obj\Debug\net6.0\staticwebassets.pack.json
 E:\CatalogAPI_aspnet\CatalogAPI\obj\Debug\net6.0\staticwebassets.build.json
 E:\CatalogAPI_aspnet\CatalogAPI\obj\Debug\net6.0\staticwebassets.development.json
 E:\CatalogAPI_aspnet\CatalogAPI\obj\Debug\net6.0\scopedcss\bundle\CatalogAPI.styles.css
@@ -149,3 +144,13 @@ E:\CatalogAPI_aspnet\CatalogAPI\obj\Debug\net6.0\ref\CatalogAPI.dll
 E:\CatalogAPI_aspnet\CatalogAPI\bin\Debug\net6.0\AutoMapper.dll
 E:\CatalogAPI_aspnet\CatalogAPI\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 E:\CatalogAPI_aspnet\CatalogAPI\bin\Debug\net6.0\Newtonsoft.Json.dll
+E:\CatalogAPI_aspnet\CatalogAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+E:\CatalogAPI_aspnet\CatalogAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+E:\CatalogAPI_aspnet\CatalogAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+E:\CatalogAPI_aspnet\CatalogAPI\bin\Debug\net6.0\Microsoft.Extensions.Identity.Core.dll
+E:\CatalogAPI_aspnet\CatalogAPI\bin\Debug\net6.0\Microsoft.Extensions.Identity.Stores.dll
+E:\CatalogAPI_aspnet\CatalogAPI\obj\Debug\net6.0\staticwebassets\msbuild.CatalogAPI.Microsoft.AspNetCore.StaticWebAssets.props
+E:\CatalogAPI_aspnet\CatalogAPI\obj\Debug\net6.0\staticwebassets\msbuild.build.CatalogAPI.props
+E:\CatalogAPI_aspnet\CatalogAPI\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.CatalogAPI.props
+E:\CatalogAPI_aspnet\CatalogAPI\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.CatalogAPI.props
+E:\CatalogAPI_aspnet\CatalogAPI\obj\Debug\net6.0\staticwebassets.pack.json
