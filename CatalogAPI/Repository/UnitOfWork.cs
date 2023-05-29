@@ -21,8 +21,8 @@ public class UnitOfWork : IUnitOfWork {
     get { return _categoryRepository = _categoryRepository ?? new CategoryRepository(_context);}
   }
 
-  public void Commit(){
-    _context.SaveChanges();
+  public async Task Commit(){
+    await _context.SaveChangesAsync();
   }
 
   public void Dispose(){

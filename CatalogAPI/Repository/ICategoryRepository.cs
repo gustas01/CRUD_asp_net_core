@@ -5,6 +5,6 @@ namespace CatalogAPI.Repository;
 
 public interface ICategoryRepository: IRepository<Category>{
 
-  PagedList<Category> GetCategories(CategoriesParameters categoriesParameters);
-  IEnumerable<Category> GetCategoryProducts();
+  Task<PagedList<Category>> GetCategories(CategoriesParameters categoriesParameters);
+  Task<IEnumerable<Category>> GetCategoryProducts();
 }

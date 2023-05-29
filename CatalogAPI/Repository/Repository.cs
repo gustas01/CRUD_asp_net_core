@@ -27,9 +27,9 @@ public class Repository<T> : IRepository<T> where T : class
     return _context.Set<T>().AsNoTracking();
   }
 
-  public T GetById(Expression<Func<T, bool>> predicate)
+  public async Task<T> GetById(Expression<Func<T, bool>> predicate)
   {
-    return _context.Set<T>().SingleOrDefault(predicate);
+    return await _context.Set<T>().SingleOrDefaultAsync(predicate);
   }
 
   public void Update(T entity)

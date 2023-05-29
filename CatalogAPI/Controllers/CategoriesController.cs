@@ -23,10 +23,10 @@ public class CategoriesController : ControllerBase
   
 
   [HttpGet]
-  public ActionResult<IEnumerable<CategoryDTO>> Index([FromQuery] CategoriesParameters categoriesParameters){
+  public async Task<ActionResult<IEnumerable<CategoryDTO>>> Index([FromQuery] CategoriesParameters categoriesParameters){
     try
     {
-      PagedList<Category> categories = _unitOfWork.CategoryRepository.GetCategories(categoriesParameters);
+      PagedList<Category> categories = await _unitOfWork.CategoryRepository.GetCategories(categoriesParameters);
 
       var metadata = new {
         categories.TotalCount,
@@ -52,10 +52,10 @@ public class CategoriesController : ControllerBase
 
 
   [HttpGet("products")]
-  public ActionResult<IEnumerable<CategoryDTO>> GetInnerCategoryProduct(){
+  public async Task<ActionResult<IEnumerable<CategoryDTO>>> GetInnerCategoryProduct(){
     try
     {
-      var categories =_unitOfWork.CategoryRepository.GetCategoryProducts().ToList();
+      var categories = await _unitOfWork.CategoryRepository.GetCategoryProducts();
       return _mapper.Map<List<CategoryDTO>>(categories);
     }
     catch (System.Exception)
@@ -66,10 +66,10 @@ public class CategoriesController : ControllerBase
 
 
   [HttpGet("{id:int}", Name="ReadCategory")]
-  public ActionResult<CategoryDTO> Read(int id){
+  public async Task<ActionResult<CategoryDTO>> Read(int id){
     try
     {
-      Category? categorie = _unitOfWork?.CategoryRepository.GetById(c => c.CategoryId == id);
+      Category? categorie = await _unitOfWork.CategoryRepository.GetById(c => c.CategoryId == id);
       if(categorie is null) return NotFound($"Categoria com id={id} não encontrada");
       return _mapper.Map<CategoryDTO>(categorie);
     }
@@ -81,25 +81,25 @@ public class CategoriesController : ControllerBase
 
 
   [HttpPost]
-  public ActionResult Create(CategoryDTO categoryDTO){
+  public async Task<ActionResult> Create(CategoryDTO categoryDTO){
     try
     {
       Category category = _mapper.Map<Category>(categoryDTO);
-      if(category is null) return BadRequest();
-      _unitOfWork?.CategoryRepository?.Add(category);
-      _unitOfWork?.Commit();
+      if(category is null) return await Task.FromResult<ActionResult>(BadRequest());
+      _unitOfWork.CategoryRepository?.Add(category);
+      await _unitOfWork.Commit();
       CategoryDTO categoryDto = _mapper.Map<CategoryDTO>(category);
-      return new CreatedAtRouteResult("ReadCategory", new { id = categoryDto.CategoryId }, categoryDto);
+      return await Task.FromResult<ActionResult>(new CreatedAtRouteResult("ReadCategory", new { id = categoryDto.CategoryId }, categoryDto));
     }
     catch (System.Exception)
     {
-      return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um problema ao tratar sua solicitação");
+      return await Task.FromResult<ActionResult>(StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um problema ao tratar sua solicitação"));
     }
   }
 
 
   [HttpPut("{id:int}")]
-  public ActionResult Update(int id, CategoryDTO categoryDTO){
+  public async Task<ActionResult> Update(int id, CategoryDTO categoryDTO){
     try
     {
       if(id != categoryDTO.CategoryId) return BadRequest();
@@ -107,6 +107,7 @@ public class CategoriesController : ControllerBase
       Category category = _mapper.Map<Category>(categoryDTO);
 
       _unitOfWork.CategoryRepository.Update(category);
+      await _unitOfWork.Commit();
 
       CategoryDTO categoryDto = _mapper.Map<CategoryDTO>(category);
 
@@ -120,14 +121,14 @@ public class CategoriesController : ControllerBase
 
 
   [HttpDelete("{id:int}")]
-  public ActionResult Delete(int id){
+  public async Task<ActionResult> Delete(int id){
     try
     {
-      Category category = _unitOfWork.CategoryRepository.GetById(c => c.CategoryId == id);
+      Category category = await _unitOfWork.CategoryRepository.GetById(c => c.CategoryId == id);
       if(category is null) return NotFound($"Categoria com id={id} não encontrada");
 
       _unitOfWork.CategoryRepository.Delete(category);
-      _unitOfWork.Commit();
+      await _unitOfWork.Commit();
       CategoryDTO categoryDto = _mapper.Map<CategoryDTO>(category);
 
       return Ok(categoryDto);

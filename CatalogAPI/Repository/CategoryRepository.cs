@@ -8,12 +8,12 @@ namespace CatalogAPI.Repository;
 public class CategoryRepository: Repository<Category>, ICategoryRepository {
   public CategoryRepository(CatalogAPIContext context) : base(context) { }
 
-  public PagedList<Category> GetCategories(CategoriesParameters categoriesParameters)
+  public async Task<PagedList<Category>> GetCategories(CategoriesParameters categoriesParameters)
   {
-    return PagedList<Category>.ToPagedList(Get().OrderBy(ca => ca.Name), categoriesParameters.PageNumber, categoriesParameters.PageSize);
+    return await PagedList<Category>.ToPagedList(Get().OrderBy(ca => ca.Name), categoriesParameters.PageNumber, categoriesParameters.PageSize);
   }
 
-  public IEnumerable<Category> GetCategoryProducts(){
-    return Get().Include(x => x.Products);
+  public async Task<IEnumerable<Category>> GetCategoryProducts(){
+    return await Get().Include(x => x.Products).ToListAsync();
   }
 }

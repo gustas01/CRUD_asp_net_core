@@ -23,18 +23,18 @@ public class ProductsController : ControllerBase
 
 
   [HttpGet("orderByPrice")]
-  public ActionResult<IEnumerable<ProductDTO>> GetProductsByPrice(){
+  public async Task<ActionResult<IEnumerable<ProductDTO>>> GetProductsByPrice(){
 
-    var products =_unitOfWork.ProductRepository.GetProductsByPrice().ToList();
+    var products =await _unitOfWork.ProductRepository.GetProductsByPrice();
     var productsDTO = _mapper.Map<List<ProductDTO>>(products);
     return productsDTO;
   }
 
   [HttpGet]
-  public ActionResult<IEnumerable<ProductDTO>> Index([FromQuery] ProductsParameters productsParameters){
+  public async Task<ActionResult<IEnumerable<ProductDTO>>> Index([FromQuery] ProductsParameters productsParameters){
     try
     {
-      PagedList<Product> products = _unitOfWork.ProductRepository.GetProducts(productsParameters);
+      PagedList<Product> products = await _unitOfWork.ProductRepository.GetProducts(productsParameters);
 
       var metadata = new {
         products.TotalCount,
@@ -58,10 +58,10 @@ public class ProductsController : ControllerBase
   }
 
   [HttpGet("{id:int}", Name="ReadProduct")]
-  public ActionResult<ProductDTO> Read(int id){
+  public async Task<ActionResult<ProductDTO>> Read(int id){
     try
     {
-      var product = _unitOfWork?.ProductRepository.GetById(p => p.ProductId == id);
+      var product = await _unitOfWork.ProductRepository.GetById(p => p.ProductId == id);
       if(product is null) return NotFound("Produto não encontrado");
       return _mapper.Map<ProductDTO>(product);
     }
@@ -73,13 +73,13 @@ public class ProductsController : ControllerBase
 
 
   [HttpPost]
-  public ActionResult<ProductDTO> Create(ProductDTO productDTO){
+  public async Task<ActionResult<ProductDTO>> Create(ProductDTO productDTO){
     try
     {
       Product product = _mapper.Map<Product>(productDTO);
       if(product is null) return BadRequest();
-      _unitOfWork?.ProductRepository?.Add(product);
-      _unitOfWork?.Commit();
+      _unitOfWork.ProductRepository.Add(product);
+      await _unitOfWork.Commit();
       ProductDTO productDto = _mapper.Map<ProductDTO>(product);
       return new CreatedAtRouteResult("ReadProduct", new { id = productDto.ProductId }, productDto);
     }
@@ -90,7 +90,7 @@ public class ProductsController : ControllerBase
   }
 
   [HttpPut("{id:int}")]
-  public ActionResult<ProductDTO> Update(int id, ProductDTO productDTO){
+  public async Task<ActionResult<ProductDTO>> Update(int id, ProductDTO productDTO){
     try
     {
       if(id != productDTO.ProductId) return BadRequest();
@@ -98,7 +98,7 @@ public class ProductsController : ControllerBase
       Product product = _mapper.Map<Product>(productDTO);
 
       _unitOfWork.ProductRepository.Update(product);
-      _unitOfWork.Commit();
+      await _unitOfWork.Commit();
 
       ProductDTO productDto = _mapper.Map<ProductDTO>(product);
 
@@ -111,14 +111,14 @@ public class ProductsController : ControllerBase
   }
 
   [HttpDelete("{id:int}")]
-  public ActionResult<ProductDTO> Delete(int id){
+  public async Task<ActionResult<ProductDTO>> Delete(int id){
     try
     {
-      Product product = _unitOfWork.ProductRepository.GetById(p => p.ProductId == id);
+      Product product = await _unitOfWork.ProductRepository.GetById(p => p.ProductId == id);
       if(product is null) return NotFound("Produto não encontrado");
 
       _unitOfWork.ProductRepository.Delete(product);
-      _unitOfWork.Commit();
+      await _unitOfWork.Commit();
       ProductDTO productDto = _mapper.Map<ProductDTO>(product);
 
       return Ok(productDto);
