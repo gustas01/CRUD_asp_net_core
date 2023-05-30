@@ -11,6 +11,11 @@ APP_PORT=
 APP_USERNAME=
 APP_PASSWORD=
 APP_DATABASE=
+
+JWT_KEY=
+AUDIENCE_TOKEN=
+ISSUER_TOKEN=
+EXPIRATION_TOKEN=
 ```
 
-preencha todos os campos logo após o sinal de igualdade, sem espaços. Para esse projeto foi usado o banco `PostgreSQL`.
+preencha todos os campos logo após o sinal de igualdade, sem espaços. Para esse projeto foi usado o banco `PostgreSQL`. O `EXPIRATION_TOKEN` está em horas.
