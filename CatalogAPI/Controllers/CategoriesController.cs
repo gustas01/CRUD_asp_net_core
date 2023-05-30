@@ -5,9 +5,11 @@ using AutoMapper;
 using CatalogAPI.DTOs;
 using CatalogAPI.Pagination;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CatalogAPI.Controllers;
 
+[Authorize(AuthenticationSchemes = "Bearer")]
 [ApiController]
 [Route("[controller]")]
 public class CategoriesController : ControllerBase

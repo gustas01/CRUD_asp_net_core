@@ -154,3 +154,10 @@ E:\CatalogAPI_aspnet\CatalogAPI\obj\Debug\net6.0\staticwebassets\msbuild.build.C
 E:\CatalogAPI_aspnet\CatalogAPI\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.CatalogAPI.props
 E:\CatalogAPI_aspnet\CatalogAPI\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.CatalogAPI.props
 E:\CatalogAPI_aspnet\CatalogAPI\obj\Debug\net6.0\staticwebassets.pack.json
+E:\CatalogAPI_aspnet\CatalogAPI\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+E:\CatalogAPI_aspnet\CatalogAPI\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+E:\CatalogAPI_aspnet\CatalogAPI\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+E:\CatalogAPI_aspnet\CatalogAPI\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+E:\CatalogAPI_aspnet\CatalogAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+E:\CatalogAPI_aspnet\CatalogAPI\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+E:\CatalogAPI_aspnet\CatalogAPI\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
