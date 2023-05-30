@@ -6,10 +6,12 @@ using CatalogAPI.DTOs;
 using CatalogAPI.Pagination;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace CatalogAPI.Controllers;
 
-[Authorize(AuthenticationSchemes = "Bearer")]
+//a linha abaixo adiciona a camada de segurança (autenticação) à esse controller
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 [ApiController]
 [Route("[controller]")]
 public class CategoriesController : ControllerBase
