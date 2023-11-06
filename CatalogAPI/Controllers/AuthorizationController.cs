@@ -1,40 +1,38 @@
-using System.Security.Claims;
 using CatalogAPI.DTOs;
+using dotenv.net;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
-using dotenv.net;
+using System.Security.Claims;
+using System.Text;
 
 namespace CatalogAPI.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class AuthorizationController : ControllerBase
-{
+public class AuthorizationController : ControllerBase {
   private readonly UserManager<IdentityUser> _userManager;
-  private readonly SignInManager<IdentityUser> _signInManager; 
-  
-  public AuthorizationController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IConfiguration configuration)
-  {
+  private readonly SignInManager<IdentityUser> _signInManager;
+
+  public AuthorizationController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IConfiguration configuration) {
     _userManager = userManager;
     _signInManager = signInManager;
   }
 
 
   [HttpGet]
-  public ActionResult<string> Get(){
+  public ActionResult<string> Get() {
     return "AuthorizationController :: Acessado em : " + DateTime.Now.ToLongDateString();
   }
 
   [HttpPost("register")]
-  public async Task<ActionResult> RegisterUser(UserDTO model){
+  public async Task<ActionResult> RegisterUser(UserDTO model) {
 
     var user = new IdentityUser {
       UserName = model.Email,
       Email = model.Email,
-      EmailConfirmed = true
+      EmailConfirmed = true,
     };
 
     var result = await _userManager.CreateAsync(user, model.Password);
@@ -47,22 +45,22 @@ public class AuthorizationController : ControllerBase
 
 
   [HttpPost("login")]
-  public async Task<ActionResult> Login(UserDTO userInfo){
+  public async Task<ActionResult> Login(UserDTO userInfo) {
     var result = await _signInManager.PasswordSignInAsync(userInfo.Email, userInfo.Password, isPersistent: false, lockoutOnFailure: false);
 
     if(result.Succeeded) return Ok(GenerateToken(userInfo));
 
     else {
-      ModelState.AddModelError(string.Empty, "Login Inválido...");
+      ModelState.AddModelError("Errors", "Login Inválido...");
       return BadRequest(ModelState);
     }
   }
 
 
   [HttpPost]
-  public UserTokenDTO GenerateToken(UserDTO user){
+  public UserTokenDTO GenerateToken(UserDTO user) {
     //essas claims é o payload que será adicionado no token
-    var claims = new [] {
+    var claims = new[] {
       new Claim(JwtRegisteredClaimNames.UniqueName, user.Email),
       new Claim("meuPet", "pipoca"),
       new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
@@ -87,7 +85,7 @@ public class AuthorizationController : ControllerBase
       signingCredentials: credentials
     );
 
-    return new UserTokenDTO(){
+    return new UserTokenDTO() {
       Authenticated = true,
       Token = new JwtSecurityTokenHandler().WriteToken(token),
       Expiration = expirationTime,

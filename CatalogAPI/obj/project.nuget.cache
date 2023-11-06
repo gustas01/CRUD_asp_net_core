@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "JM8f2Cr2QHG/psONCkDfMIO/F22Qxxnir0S6IPXY+7DhE4K36BasKG3csau39RKOMFfhzAVJ7R+sSQkt/9F7sA==",
+  "dgSpecHash": "ktqa4NGscwY/ohHTIz8ztpUyaOrVo6BBZOa7Tiezf5buLa6706owDuqTrreLqHTiJkii271YkogBljFSXbNeiw==",
   "success": true,
-  "projectFilePath": "E:\\CatalogAPI_aspnet\\CatalogAPI\\CatalogAPI.csproj",
+  "projectFilePath": "E:\\CRUD_asp_net_core\\CatalogAPI\\CatalogAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Gustavo\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\Gustavo\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
@@ -19,6 +19,7 @@
     "C:\\Users\\Gustavo\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\7.0.5\\microsoft.entityframeworkcore.analyzers.7.0.5.nupkg.sha512",
     "C:\\Users\\Gustavo\\.nuget\\packages\\microsoft.entityframeworkcore.design\\7.0.5\\microsoft.entityframeworkcore.design.7.0.5.nupkg.sha512",
     "C:\\Users\\Gustavo\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\7.0.5\\microsoft.entityframeworkcore.relational.7.0.5.nupkg.sha512",
+    "C:\\Users\\Gustavo\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\6.0.23\\microsoft.entityframeworkcore.tools.6.0.23.nupkg.sha512",
     "C:\\Users\\Gustavo\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\Gustavo\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\7.0.0\\microsoft.extensions.caching.abstractions.7.0.0.nupkg.sha512",
     "C:\\Users\\Gustavo\\.nuget\\packages\\microsoft.extensions.caching.memory\\7.0.0\\microsoft.extensions.caching.memory.7.0.0.nupkg.sha512",
